@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 8px 12px;
+            margin-left: 5px;
+            border: none;
+            background: #007BFF;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .habit {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .habit:last-child {
+            border-bottom: none;
+        }
+        .habit .actions a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #28a745;
+        }
+        .habit .actions a.delete {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Habit Tracker</h1>
+        <form action="/add" method="POST">
+            <input type="text" name="habit" placeholder="Enter a new habit" required>
+            <button type="submit">Add Habit</button>
+        </form>
+        <h2>Your Habits:</h2>
+        {% for habit, dates in habits.items() %}
+        <div class="habit">
+            <span>{{ habit }} ({{ dates|length }} days)</span>
+            <div class="actions">
+                <a href="/mark/{{ habit }}">✅ Mark Today</a>
+                <a href="/delete/{{ habit }}" class="delete">❌ Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
